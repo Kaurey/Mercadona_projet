@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégorie : {{ category.Libelle }}{% endblock %}
+
+{% block body %}
+    <h1>Catégorie : {{ category.Libelle }}</h1>
+    <h2>Liste des produits</h2>
+    <a href=" {{ path('app_product_index') }}">Retour au catalogue</a>
+    {#<table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom du produit</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Photo</th>
+                <th>Catégorie</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td class="align-middle">{{ product.Libelle }}</td>
+                <td class="align-middle">{{ product.Description }}</td>
+                {% if ( product.promotion != null ) and ( product.promotion.getStartDate()|date("m/d/Y") <= 'now'|date("m/d/Y") ) and ( product.promotion.getEndDate()|date("m/d/Y") >= 'now'|date("m/d/Y") ) %}
+                    {% set newPrice = product.Price * (100 - product.promotion.getPercentage()) / 100 %}
+                    <td class="align-middle fw-bold text-danger">{{ newPrice ~ "€ En promotion" }}</td>
+                {% else %}
+                    <td class="align-middle">{{ product.Price ~ "€" }}</td>
+                {% endif %}
+                <td class="align-middle"><img src="{{ asset('images/' ~ product.Picture) }}" alt="{{ product.Picture }}" width="200" height="200"></td>
+                <td class="align-middle">{{ product.category}}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucun Article n'appartient à cette catégorie</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>#}
+    <div class="container">
+        <div class="row row-cols-3">
+            {% for product in products %}
+                <div class="col">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ asset('images/' ~ product.Picture) }}" class="img-fluid rounded-start" alt="{{ product.Picture }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.Libelle }}</h5>
+                                    <p class="card-text">{{ product.Description }}</p>
+                                    <p class="card-text">{{ product.category}}</p>
+                                    {% if ( product.promotion != null ) and ( product.promotion.getStartDate()|date("m/d/Y") <= 'now'|date("m/d/Y") ) and ( product.promotion.getEndDate()|date("m/d/Y") >= 'now'|date("m/d/Y") ) %}
+                                        {% set newPrice = product.Price * (100 - product.promotion.getPercentage()) / 100 %}
+                                        <p class="card-text fw-bold text-danger">{{ newPrice ~ "€ En promotion" }}</p>
+                                    {% else %}
+                                        <p class="card-text">{{ product.Price ~ "€" }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucun article n'a été créé</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
