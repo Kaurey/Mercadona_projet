@@ -21,5 +21,6 @@ class PromotionCrudController extends AbstractCrudController
         yield DateField::new('end_date');
         yield NumberField::new('percentage');
         yield AssociationField::new('product');
+        yield AssociationField::new('admin');
     }
 }

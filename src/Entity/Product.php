@@ -33,6 +33,10 @@ class Product
     #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
     private ?Promotion $promotion = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Admin $admin = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,6 +120,18 @@ class Product
         }
 
         $this->promotion = $promotion;
+
+        return $this;
+    }
+
+    public function getAdmin(): ?Admin
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(?Admin $admin): static
+    {
+        $this->admin = $admin;
 
         return $this;
     }

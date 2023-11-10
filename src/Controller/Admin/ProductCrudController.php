@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -18,12 +19,6 @@ class ProductCrudController extends AbstractCrudController
         return Product::class;
     }
 
-    public function configureCrud(Crud $crud): Crud
-    {
-        return $crud
-            ->setEntityLabelInSingular('Produits');
-    }
-
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('Libelle');
@@ -31,5 +26,6 @@ class ProductCrudController extends AbstractCrudController
         yield NumberField::new('Price');
         yield ImageField::new('Picture')->setUploadDir('public/images/');
         yield AssociationField::new('category');
+        yield AssociationField::new('admin');
     }
 }

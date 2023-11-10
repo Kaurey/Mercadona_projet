@@ -16,6 +16,7 @@ class PromotionType extends AbstractType
             ->add('end_date')
             ->add('percentage')
             ->add('product')
+            ->add('promotion')
         ;
     }
 
