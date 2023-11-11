@@ -50,7 +50,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ product.Libelle }}</h5>
                                     <p class="card-text">{{ product.Description }}</p>
-                                    <p class="card-text">{{ product.category}}</p>
+                                    <p class="card-text">{{"Catégorie : " ~ product.category}}</p>
                                     {% if ( product.promotion != null ) and ( product.promotion.getStartDate()|date("m/d/Y") <= 'now'|date("m/d/Y") ) and ( product.promotion.getEndDate()|date("m/d/Y") >= 'now'|date("m/d/Y") ) %}
                                         {% set newPrice = product.Price * (100 - product.promotion.getPercentage()) / 100 %}
                                         <p class="card-text fw-bold text-danger">{{ newPrice ~ "€ En promotion" }}</p>
