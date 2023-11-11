@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -15,12 +16,22 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        minMessage: "Le Libelle doit faire au moins {{ limit }} caractères",
+        max: 255,
+        maxMessage: "Le Libelle ne doit pas faire plus de {{ limit }} caractères"
+        )]
     private ?string $Libelle = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $Description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Positive(message: "Le prix doit être positif")]
     private ?float $Price = null;
 
     #[ORM\Column(length: 255)]
@@ -28,6 +39,7 @@ class Product
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: "Le champ category ne doit pas être vide")]
     private ?Category $category = null;
 
     #[ORM\OneToOne(mappedBy: 'product', cascade: ['persist', 'remove'])]
@@ -35,6 +47,7 @@ class Product
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: "Le champ admin ne doit pas être vide")]
     private ?Admin $admin = null;
 
     public function getId(): ?int

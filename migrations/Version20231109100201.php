@@ -25,9 +25,10 @@ final class Version20231109100201 extends AbstractMigration
         $this->addSql('ALTER TABLE product ADD category_id INT NOT NULL');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('CREATE INDEX IDX_D34A04AD12469DE2 ON product (category_id)');
-        $this->addSql('ALTER TABLE promotion ADD product_id INT NOT NULL');
+        $this->addSql('ALTER TABLE promotion ADD product_id INT NOT NULL');    
         $this->addSql('ALTER TABLE promotion ADD CONSTRAINT FK_C11D7DD14584665A FOREIGN KEY (product_id) REFERENCES product (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('CREATE INDEX IDX_C11D7DD14584665A ON promotion (product_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_C11D7DD14584665A ON promotion (product_id)');
+        
     }
 
     public function down(Schema $schema): void

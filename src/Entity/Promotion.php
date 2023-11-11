@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PromotionRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PromotionRepository::class)]
@@ -21,6 +22,8 @@ class Promotion
     private ?\DateTimeInterface $end_date = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Positive(message: "Le pourcentage doit être positif")]
     private ?float $percentage = null;
 
     #[ORM\OneToOne(inversedBy: 'promotion', cascade: ['persist'])]
@@ -29,6 +32,7 @@ class Promotion
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Admin $admin = null;
 
     public function getId(): ?int
