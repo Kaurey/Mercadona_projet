@@ -24,7 +24,7 @@ class ProductCrudController extends AbstractCrudController
         yield TextField::new('Libelle');
         yield TextAreaField::new('Description');
         yield NumberField::new('Price');
-        yield ImageField::new('Picture')->setUploadDir('public/images/');
+        yield ImageField::new('Picture')->setUploadDir('public/uploads/images/');
         yield AssociationField::new('category');
         yield AssociationField::new('admin');
     }
