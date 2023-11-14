@@ -105,7 +105,7 @@ class Product
 
     public function __toString(): string
     {     
-        return "#" . $this->id . " " . $this->Libelle;
+        return $this->Libelle;
     }
 
     public function getCategory(): ?Category
